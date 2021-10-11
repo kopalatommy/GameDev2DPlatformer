@@ -261,8 +261,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerT3
       objectReference: {fileID: 0}
+    - target: {fileID: 7646703022079659622, guid: 86d0def63e42aa243834592b6577e29f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 344822484}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86d0def63e42aa243834592b6577e29f, type: 3}
+--- !u!1 &344822483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7646703022079659621, guid: 86d0def63e42aa243834592b6577e29f, type: 3}
+  m_PrefabInstance: {fileID: 344822482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &344822484
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344822483}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5604cb83588b2f04c8cc8d0cdbdbd4a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &391178381
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,12 +343,16 @@ MonoBehaviour:
   playerSpawnLoc: {fileID: 1058220642}
   player: {fileID: 520794926}
   currentLevel: 1
+  enemies: []
+  enemySpawnLocs: []
+  parTimeSecs: 15
+  parTimeBonus: 1000
 --- !u!114 &520794926 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7646703022079659622, guid: 86d0def63e42aa243834592b6577e29f, type: 3}
   m_PrefabInstance: {fileID: 344822482}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 344822483}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e00c6d79f5a9442b7c9899f40fb358, type: 3}

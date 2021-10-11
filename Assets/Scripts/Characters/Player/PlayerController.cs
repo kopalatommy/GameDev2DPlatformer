@@ -29,6 +29,8 @@ namespace Platformer.Character.Player
         //Uses total points as arg
         public UnityEvent<int> onPlayerScorePoints;
 
+        [SerializeField] private Animator animator;
+
         private new void Awake()
         {
             if (onPlayerFail == null)
@@ -40,11 +42,20 @@ namespace Platformer.Character.Player
 
             base.Awake();
             onCharacterDie.AddListener(OnPlayerDie);
+
+            animator.SetBool("InAIr", false);
+            animator.SetFloat("Speed", 0);
         }
 
         private void Update()
         {
             OnUpdate();
+
+            if(animator.GetBool("InAir") != isGrounded)
+            {
+                animator.SetBool("InAIr", isGrounded);
+            }
+            animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
         }
 
         protected new void OnUpdate()
