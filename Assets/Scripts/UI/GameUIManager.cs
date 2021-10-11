@@ -25,8 +25,13 @@ namespace Platformer.UI
         [SerializeField] private GameObject succeededUIParent = null;
         [SerializeField] private Button succeededExitButton = null;
         [SerializeField] private Button succeededContinueButton = null;
+        [SerializeField] private TMP_Text succeedPointsText = null;
 
         [SerializeField] private LevelManager levelManager;
+
+        [SerializeField] private TMP_Text timerText;
+
+        [SerializeField] private TMP_Text pointsText;
 
         public Button ContinueButton { get { return succeededContinueButton; } }
 
@@ -35,6 +40,7 @@ namespace Platformer.UI
             player.onCharacterDie.AddListener(OnPlayerDie);
             player.onPlayerSucceed.AddListener(OnPlayerSucceed);
             player.onPlayerFail.AddListener(OnPlayerFail);
+            player.onPlayerScorePoints.AddListener(OnPlayerScorePoints);
             UpdateUI();
 
             failedUIParent.SetActive(false);
@@ -44,6 +50,14 @@ namespace Platformer.UI
             succeededUIParent.SetActive(false);
             succeededContinueButton.onClick.AddListener(OnPlayerSucceed);
             succeededExitButton.onClick.AddListener(ExitLevel);
+        }
+
+        private void Update()
+        {
+            int t = (int)levelManager.ElapsedTime;
+            int mins = t / 60;
+            int secs = t % 60;
+            timerText.SetText($"{mins}:{secs}");
         }
 
         private void UpdateUI()
@@ -74,6 +88,15 @@ namespace Platformer.UI
         private void OnPlayerSucceed()
         {
             succeededUIParent.SetActive(true);
+
+            levelManager.OnPlayerSucceed();
+            succeedPointsText.SetText(player.CurrentPoints.ToString());
+            succeededContinueButton.gameObject.SetActive(levelManager.CurrentLevel < levelManager.NumLevels);
+        }
+
+        private void OnPlayerScorePoints(int newScore)
+        {
+            pointsText.SetText(newScore.ToString());
         }
 
         private void RestartLevel()

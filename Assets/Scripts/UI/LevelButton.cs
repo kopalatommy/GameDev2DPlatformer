@@ -4,12 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Platformer.Managers;
 
 namespace Platformer.UI
 {
     public class LevelButton : MonoBehaviour
     {
         [SerializeField] private TMP_Text levelText;
+        [SerializeField] private TMP_Text pointsText;
         [SerializeField] private RawImage levelImage;
         [SerializeField] private Image img;
         [SerializeField] private Button button;
@@ -21,6 +23,7 @@ namespace Platformer.UI
         {
             levelImage.texture = Resources.Load<Texture2D>(imgName);
             levelText.SetText(levelName);
+            pointsText.SetText(ScoreManager.Instance.GetHighScore(sceneIndex).ToString());
 
             this.clickAction = clickAction;
             this.sceneIndex = sceneIndex;

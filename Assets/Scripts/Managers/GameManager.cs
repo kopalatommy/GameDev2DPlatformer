@@ -11,6 +11,8 @@ namespace Platformer.Managers
             DontDestroyOnLoad(gameObject);
 
             Application.targetFrameRate = 100;
+
+            ScoreManager i = ScoreManager.Instance;
         }
     }
 }

@@ -19,10 +19,21 @@ namespace Platformer.Managers
 
         [SerializeField] private int currentLevel = 1;
 
-        public int CurrentLevel { get { return currentLevel; } }
-
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
         [SerializeField] private List<Transform> enemySpawnLocs = new List<Transform>();
+
+        [SerializeField] private int parTimeSecs = 15;
+        [SerializeField] private int parTimeBonus = 1000;
+
+        private float elapsedTime = 0;
+
+        public const int numLevels = 6;
+
+        public int ParTimeSecs { get { return parTimeSecs; } }
+        public int ParTimeBonus { get { return parTimeBonus; } }
+        public float ElapsedTime { get { return elapsedTime; } }
+        public int CurrentLevel { get { return currentLevel; } }
+        public int NumLevels { get { return numLevels; } }
 
         private void Awake()
         {
@@ -33,6 +44,24 @@ namespace Platformer.Managers
             uiManager.ContinueButton.onClick.AddListener(MoveToNextScene);
 
             ResetEnemies();
+        }
+
+        private void Update()
+        {
+            elapsedTime += Time.deltaTime;
+        }
+
+        public void OnPlayerSucceed()
+        {
+            int points = player.CurrentPoints;
+
+            if(parTimeSecs > elapsedTime)
+            {
+                points += ParTimeBonus;
+            }
+            points += (player.RemainingLives) * 100;
+            player.CurrentPoints = points;
+            ScoreManager.Instance.SetHighScore(currentLevel, points);
         }
 
         private void OnPlayerDie()

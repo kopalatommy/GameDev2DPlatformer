@@ -6,6 +6,10 @@ namespace Platformer.Character.Enemy
 {
     public class EnemyController : KinematicCharacter
     {
+        [SerializeField] private int killPoints = 250;
+
+        public int KillPoints { get { return killPoints; } }
+
         protected override void SetUpCharacter()
         {
             base.SetUpCharacter();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Platformer.World;
 
 namespace Platformer.Character
 {
@@ -38,6 +39,12 @@ namespace Platformer.Character
 
         [SerializeField] private LayerMask killLayers;
 
+        [SerializeField] private LayerMask platformLayer;
+        protected bool onPlatform = false;
+        protected MovingPlatform platform;
+
+        public bool canMove = true;
+
         protected virtual void Awake()
         {
             SetUpCharacter();
@@ -61,6 +68,9 @@ namespace Platformer.Character
 
         protected void OnUpdate()
         {
+            if (!canMove)
+                return;
+
             if (tempAirLock && tempAirLockTime < Time.time)
             {
                 tempAirLock = false;
@@ -69,9 +79,15 @@ namespace Platformer.Character
 
         protected void FixedUpdate()
         {
+            if (!canMove)
+                return;
+
             bool wasGrounded = isGrounded;
             isGrounded = false;
             againstWall = false;
+
+            onPlatform = false;
+            platform = null;
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckPosition.position, groundCheckRadius, groundLayers);
             for(int i = 0; i < colliders.Length; i++)
@@ -82,6 +98,12 @@ namespace Platformer.Character
                     if(!wasGrounded)
                     {
                         onLandEvent.Invoke();
+                    }
+
+                    if(((1 << colliders[i].gameObject.layer) & platformLayer.value) != 0)
+                    {
+                        onPlatform = true;
+                        platform = colliders[i].gameObject.GetComponent<MovingPlatform>();
                     }
                 }
             }
@@ -103,7 +125,10 @@ namespace Platformer.Character
 
         public void Move(float direction, bool jump)
         {
-            if(!tempAirLock && (isGrounded || controlInAir))
+            if (!canMove)
+                return;
+
+            if (!tempAirLock && (isGrounded || controlInAir))
             {
                 Vector2 targetVelocity = new Vector2(direction * movementSpeed, _rigidbody.velocity.y);
                 if (!isGrounded)
@@ -131,7 +156,12 @@ namespace Platformer.Character
                 }
             }
 
-            if(jump)
+            if (onPlatform)
+            {
+                transform.Translate(platform.Velocity);
+            }
+
+            if (jump)
             {
                 if(isGrounded)
                 {
@@ -171,6 +201,25 @@ namespace Platformer.Character
         {
             HandleTrigger(collision);
         }
+
+        /*protected virtual void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (((1 << collision.gameObject.layer) & platformLayer.value) != 0)
+            {
+                onPlatform = true;
+                platform = collision.gameObject.GetComponent<MovingPlatform>();
+            }
+        }*/
+
+        /*protected virtual void OnCollisionExit2D(Collision2D collision)
+        {
+            if (((1 << collision.gameObject.layer) & platformLayer.value) != 0)
+            {
+                onPlatform = false;
+                platform = null;
+                Debug.Log(name + " is on platform");
+            }
+        }*/
 
         protected virtual void HandleTrigger(Collider2D col)
         {

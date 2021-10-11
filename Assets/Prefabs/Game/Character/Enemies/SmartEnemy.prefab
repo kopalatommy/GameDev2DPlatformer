@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935970578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8998303149747536004}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   movementSmoothing: 0.05
-  movementSpeed: 10
+  movementSpeed: 5
   groundLayers:
     serializedVersion: 2
     m_Bits: 129
@@ -223,7 +223,11 @@ MonoBehaviour:
   killLayers:
     serializedVersion: 2
     m_Bits: 256
-  floorCheckLocation: {fileID: 0}
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  canMove: 1
+  floorCheckLocation: {fileID: 935970579}
 --- !u!1 &8998303150166181876
 GameObject:
   m_ObjectHideFlags: 0

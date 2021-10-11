@@ -269,7 +269,7 @@ MonoBehaviour:
   movementSpeed: 10
   groundLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 2177
   groundCheckPosition: {fileID: 7646703021205098350}
   groundCheckRadius: 0.2
   wallCheckLocation: {fileID: 2077859337}
@@ -290,13 +290,26 @@ MonoBehaviour:
   killLayers:
     serializedVersion: 2
     m_Bits: 256
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  canMove: 1
   playerCamera: {fileID: 7646703021085189130}
   maxLives: 3
   remainingLives: 3
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  collectableLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   onPlayerSucceed:
     m_PersistentCalls:
       m_Calls: []
   onPlayerFail:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerScorePoints:
     m_PersistentCalls:
       m_Calls: []
 --- !u!70 &7646703022079659619

@@ -26,14 +26,11 @@ namespace Platformer.Character.Enemy
 
             if(!flip)
             {
-                Debug.Log("Checking if agaisnt wall");
                 colliders = Physics2D.OverlapCircleAll(wallCheckLocation.position, groundCheckRadius, groundLayers);
-                Debug.Log("Collision count: " + colliders.Length);
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     if (colliders[i].gameObject != gameObject)
                     {
-                        Debug.Log("Is against wall");
                         flip = true;
                         break;
                     }
@@ -42,7 +39,6 @@ namespace Platformer.Character.Enemy
 
             if (flip)
             {
-                Debug.Log("No collisions");
                 //FlipCharacter();
                 Vector3 v = _rigidbody.velocity;
                 v.x = 0;

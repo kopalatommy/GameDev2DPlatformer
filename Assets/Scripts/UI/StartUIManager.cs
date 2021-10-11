@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using Platformer.Managers;
 
 namespace Platformer.UI
 {
@@ -39,7 +40,7 @@ namespace Platformer.UI
 
         private void BuildLevelButtons()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < LevelManager.numLevels; i++)
             {
                 LevelButton levelB = Instantiate(levelButtonPrefab, levelSelectorContent).GetComponent<LevelButton>();
                 levelB.Populate("Level_Image", "Level " + (i + 1), OnLevelButtonClicked, i + 1);
